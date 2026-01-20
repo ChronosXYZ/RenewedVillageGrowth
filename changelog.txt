@@ -1,5 +1,9 @@
 *** Renewed Village Growth GS Changelog ***
 
+Version 12.2 (2026/01/20)
+- fix: Fix FIRS 5 Steeltown support
+- fix: Refactor code to make it less repetitive and hardcoded
+
 Version 12.1 (2025/07/12)
 - new: Ukrainian translation (mortiy)
 
