@@ -57,8 +57,9 @@ enum Economies
     FIRS5__STEELTOWN, // 5.0.0
     FIRS5__IN_A_HOT_COUNTRY, // 5.0.0
     XIS__THE_LOT, // 0.6
-    AXIS__STEELTOWN, // 2.2.0
-    AXIS__TROPICAL_PARADISE, // 2.2.0
+    AXIS__STEELTOWN, // 2.3.0
+    AXIS__TROPICAL_PARADISE, // 2.3.0
+    AXIS__EXTREME_CLASSIC, // 2.3.0
     OTIS, // 05
     IOTC, // 0.1.4
     LUMBERJACK, // 0.1.0
@@ -248,22 +249,30 @@ function GetEconomyCargoList(economy, cargo_list) {
                 "PHOS","IRON","PIPE","FICR","PORE","QLME","RCYC","RUBR","SALT","SAND",
                 "SCMT","SLAG","SASH","STEL","SGBT","SULP","VBOD","VPTS","VEHI","WOOD",
                 "WOOL","ZINC"];
-    case (Economies.AXIS__STEELTOWN): //AXIS 2.2.0 Steel City
+    case (Economies.AXIS__STEELTOWN): //AXIS 2.3.0 Steel City
         return ["PASS","ACID","MAIL","STAL","ALO_","GOOD","ALUM","NH3_","NHNO","AORE",
                 "CBLK","FOOD","STCB","CMNT","RFPR","CHLO","SOAP","COAL","CTAR","COKE",
                 "COPR","COCO","POWR","ENSP","C2H4","FMSP","FECR","FISH","FRUT","GLAS",
-                "GRAI", "H2__", "IORE", "LIME", "LVST", "LYE_", "N7__", "OIL_", "O2__", "MNSP",
-                "COAT","PETR","IRON","PLAS","PPAR","PORE","QLME","RCYC","RUBR","SALT",
-                "SAND","SCMT","SLAG","SASH","STSE","STSH","STWR","SULP","TYRE","VBOD",
-                "VENG", "VPTS", "VEHI", "ZINC"];
-    case (Economies.AXIS__TROPICAL_PARADISE): // AXIS 2.2.0 Tropical Paradise
+                "GRAI","H2__","IORE","LIME","LVST","LYE_","MPAR","N7__","OIL_","O2__",
+                "MNSP","COAT","PETR","IRON","PLAS","PPAR","PORE","QLME","RCYC","RUBR",
+                "SALT","SAND","SCMT","SLAG","SASH","STSH","STWR","SULP","TYRE","VBOD",
+                "VENG","VPTS","VEHI","ZINC"];
+    case (Economies.AXIS__TROPICAL_PARADISE): // AXIS 2.3.0 Tropical Paradise
         return ["PASS","ACET","MAIL","BEER","BIOM","GOOD","BDMT","RFPR","CLAY","SOAP",
                 "COAL","FOOD","COKE","COPR","COCO","CORE","EOIL","ENSP","BOOM","FMSP",
                 "FERT","FISH","BAKE","ENUM","FRUT","GLAS","GRAI","IORE","LIME","LVST",
-                "WOOD","MEAT","MILK","NITR","OIL_","OLSD","MNSP","COAT","PETR","PHOS",
-                "PHAC","IRON","FICR","PLAS","QLME","RAMT","RCYC","RUBR","SALT","SAND",
-                "SCMT","SLAG","SASH","STEL","STSE","SGCN","SUGR","SULP","SUAC","TEXT",
+                "WOOD","MEAT","MPAR","MILK","NITR","OIL_","OLSD","MNSP","COAT","PETR",
+                "PHOS","PHAC","IRON","FICR","PLAS","QLME","RAMT","RCYC","RUBR","SALT",
+                "SAND","SCMT","SLAG","SASH","STEL","SGCN","SUGR","SULP","SUAC","TEXT",
                 "WDPR","TYRE","VPTS","VEHI"];
+    case (Economies.AXIS__EXTREME_CLASSIC): // AXIS 2.3.0 Extreme Classic
+        return ["PASS","ACID","MAIL","BEER","ALUM","GOOD","AORE","BIOM","BDMT","CMNT",
+                "RFPR","FOOD","CHLO","CLAY","COAL","CTAR","COKE","COPR","CORE","EOIL",
+                "POWR","ENSP","BOOM","FMSP","FERT","FISH","FRUT","GLAS","GRAI","IORE",
+                "LIME","LVST","WOOD","MPAR","MILK","NITR","OIL_","OLSD","MNSP","COAT",
+                "PAPR","PETR","IRON","FICR","PLAS","PORE","QLME","RAMT","RCYC","RUBR",
+                "SALT","SAND","SCMT","SLAG","SASH","STEL","SGBT","SULP","TEXT","TYRE",
+                "WDPR","VPTS","VEHI","ZINC"];
     case(Economies.OTIS): // OTIS 05
         local list = ["PASS","COAL","MAIL","OIL_","LIME","GOOD","GRAI","WOOD","IORE","STEL",
                       "MILK","FOOD","PAPR","FISH","WOOL","CLAY","SAND","WDPR","PCL_","GRVL",
@@ -910,13 +919,13 @@ function ConstructECSVectorCargoList(cargo_list) {
         perm = [60,25,25,15,10],
         decay = [0.4,0.2,0.2,0.1,0.1]
     },
-    [Economies.AXIS__STEELTOWN] = { // AXIS 2.2.0: Steel City
+    [Economies.AXIS__STEELTOWN] = { // AXIS 2.3.0: Steel City
         limiter = [0,2],
         cat = [[0,2],
-               [9, 17, 18, 32, 33, 36, 37, 38, 45, 47, 50, 51, 52, 53], //raw
-               [1, 4, 10, 14, 15, 19, 21, 24, 26, 31, 35, 41, 42, 46, 57, 63], //processed
-               [3, 6, 7, 8, 12, 13, 20, 29, 39, 43, 48, 55, 56], //intermediate
-               [5, 16, 22, 23, 25, 40, 44, 54, 58, 59, 60, 61, 62] //complex
+               [9, 17, 18, 32, 33, 37, 38, 39, 46, 48, 51, 57], //raw
+               [1, 4, 10, 14, 15, 19, 21, 24, 26, 31, 35, 42, 43, 47, 52, 53, 54, 63], //processed
+               [3, 6, 7, 8, 12, 13, 20, 29, 36, 40, 44, 49, 55, 56], //intermediate
+               [5, 11, 16, 22, 23, 25, 41, 45, 58, 59, 60, 61, 62] //complex
         ],
         list = [CatLabels.PUBLIC_SERVICES,CatLabels.RAW_AND_FOOD,CatLabels.REFINED_MATS,
                 CatLabels.MANUFACTORING_COMPS, CatLabels.FINAL_AND_VEHICLES ],
@@ -924,8 +933,9 @@ function ConstructECSVectorCargoList(cargo_list) {
         perm = [60,25,25,15,10],
         decay = [0.4,0.2,0.2,0.1,0.1],
         cat_6 = {
-            items = [11, 27, 28, 30, 34, 49],
-            insert_idx = 1,
+            items = [27, 28, 30, 34, 50],
+            insert_idx = 2,
+            extend_idx = 1,
             label = CatLabels.RAW_FOOD,
             rename_idx = 1,
             rename_label = CatLabels.RAW_MATERIALS,
@@ -934,13 +944,13 @@ function ConstructECSVectorCargoList(cargo_list) {
             decay_active = [0.4, 0.2, 0.2, 0.15, 0.15, 0.1]
         }
     },
-    [Economies.AXIS__TROPICAL_PARADISE] = { // AXIS 2.2.0: Tropical Paradise
+    [Economies.AXIS__TROPICAL_PARADISE] = { // AXIS 2.3.0: Tropical Paradise (64 cargos)
         limiter = [0,2],
         cat = [[0,2],
-               [8, 10, 15, 27, 28, 30, 33, 34, 35, 39, 42, 46, 47, 48, 49, 50], // "Raw materials"
-               [1, 4, 7, 38, 57, 12, 14, 16, 25, 60, 40, 41, 44, 51, 52, 58, 59], // "Refined materials"
-               [13, 9, 18, 20, 36, 37, 43, 45, 53, 54, 61, 62], // "Manufacturing components"
-               [5, 6, 17, 19, 63] // "Finished goods and vehicles"
+               [4, 8, 10, 15, 27, 28, 30, 34, 35, 36, 40, 43, 47, 48, 49, 50, 57], // Raw materials
+               [1, 7, 12, 13, 14, 16, 20, 22, 39, 41, 42, 45, 51, 52, 53, 54, 56, 58, 59, 60], // Refined materials
+               [6, 18, 23, 25, 32, 37, 38, 44, 46, 61, 62], // Manufacturing components
+               [3, 5, 9, 11, 17, 19, 31, 63] // Finished goods and vehicles
         ],
         list = [CatLabels.PUBLIC_SERVICES,CatLabels.RAW_AND_FOOD,CatLabels.REFINED_MATS,
                 CatLabels.MANUFACTORING_COMPS, CatLabels.FINAL_AND_VEHICLES ],
@@ -948,8 +958,34 @@ function ConstructECSVectorCargoList(cargo_list) {
         perm = [60,25,25,15,10],
         decay = [0.4,0.2,0.2,0.1,0.1],
         cat_6 = {
-            items = [3, 11, 21, 22, 23, 24, 26, 29, 31, 32, 55, 56],
-            insert_idx = 1,
+            items = [21, 24, 26, 29, 33, 55], // fish, fruits, grain, livestock, milk, sugarcane
+            insert_idx = 2,
+            extend_idx = 1,
+            label = CatLabels.RAW_FOOD,
+            rename_idx = 1,
+            rename_label = CatLabels.RAW_MATERIALS,
+            pop_active = [0, 500, 1000, 4000, 8000, 12000],
+            perm_active = [60, 20, 20, 15, 15, 10],
+            decay_active = [0.4, 0.2, 0.2, 0.15, 0.15, 0.1]
+        }
+    },
+    [Economies.AXIS__EXTREME_CLASSIC] = { // AXIS 2.3.0: Extreme Classic (64 cargos)
+        limiter = [0,2],
+        cat = [[0,2],
+               [6, 7, 13, 14, 15, 18, 29, 30, 32, 35, 36, 37, 43, 45, 48, 49, 50, 51, 57], // Raw & food
+               [1, 4, 9, 10, 12, 16, 17, 19, 24, 40, 41, 42, 46, 52, 53, 54, 55, 58, 60, 63], // Processed/refined
+               [8, 20, 22, 27, 33, 38, 39, 44, 47, 59, 61], // Intermediate/manufacturing
+               [3, 5, 11, 21, 23, 62] // Finished goods
+        ],
+        list = [CatLabels.PUBLIC_SERVICES, CatLabels.RAW_AND_FOOD, CatLabels.REFINED_MATS,
+                CatLabels.MANUFACTORING_COMPS, CatLabels.FINAL_AND_VEHICLES],
+        pop = [0, 500, 1000, 4000, 8000],
+        perm = [60, 25, 25, 15, 10],
+        decay = [0.4, 0.2, 0.2, 0.1, 0.1],
+        cat_6 = {
+            items = [25, 26, 28, 31, 34, 56], // fish, fruits, grain, livestock, milk, sugar_beet
+            insert_idx = 2,
+            extend_idx = 1,
             label = CatLabels.RAW_FOOD,
             rename_idx = 1,
             rename_label = CatLabels.RAW_MATERIALS,
@@ -1091,11 +1127,34 @@ function DefineCargosBySettings(economy)
         ::CargoPermille <- s.perm;
         ::CargoDecay <- s.decay;
 
+        /* cat_6: Optional 6th category split.
+         * When cargo_6_category setting is enabled:
+         *   - items: cargo indices to split into a new category
+         *   - insert_idx: position to insert the new category
+         *   - rename_idx/rename_label: rename the original category
+         *   - Items are removed from original category (rename_idx)
+         *     to avoid duplication, then inserted at insert_idx.
+         * When cargo_6_category setting is disabled:
+         *   - Items are merged into category at extend_idx (if set),
+         *     otherwise into category at insert_idx. Use extend_idx
+         *     when insert_idx differs from the original category
+         *     (e.g. when swapping category order).
+         */
         if ("cat_6" in s) {
             local c6 = s.cat_6;
             if (::SettingsTable.cargo_6_category) {
                 if ("rename_idx" in c6) {
                     ::CargoCatList[c6.rename_idx] = c6.rename_label;
+                }
+                // Remove cat_6 items from original category to avoid duplication
+                local orig_cat = ::CargoCat[c6.rename_idx];
+                foreach (item in c6.items) {
+                    for (local i = 0; i < orig_cat.len(); ++i) {
+                        if (orig_cat[i] == item) {
+                            orig_cat.remove(i);
+                            break;
+                        }
+                    }
                 }
                 ::CargoCat.insert(c6.insert_idx, c6.items);
                 ::CargoCatList.insert(c6.insert_idx, c6.label);
@@ -1103,7 +1162,8 @@ function DefineCargosBySettings(economy)
                 ::CargoPermille <- c6.perm_active;
                 ::CargoDecay <- c6.decay_active;
             } else {
-                ::CargoCat[c6.insert_idx].extend(c6.items);
+                local ext_idx = ("extend_idx" in c6) ? c6.extend_idx : c6.insert_idx;
+                ::CargoCat[ext_idx].extend(c6.items);
             }
         }
     }
