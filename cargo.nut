@@ -922,7 +922,7 @@ function ConstructECSVectorCargoList(cargo_list) {
     [Economies.AXIS__STEELTOWN] = { // AXIS 2.3.0: Steel City
         limiter = [0,2],
         cat = [[0,2],
-               [9, 17, 18, 27, 28, 30, 32, 33, 34, 37, 38, 39, 46, 48, 50, 51, 57], //raw
+               [9, 17, 18, 32, 33, 37, 38, 39, 46, 48, 51, 57], //raw
                [1, 4, 10, 14, 15, 19, 21, 24, 26, 31, 35, 42, 43, 47, 52, 53, 54, 63], //processed
                [3, 6, 7, 8, 12, 13, 20, 29, 36, 40, 44, 49, 55, 56], //intermediate
                [5, 11, 16, 22, 23, 25, 41, 45, 58, 59, 60, 61, 62] //complex
@@ -934,7 +934,8 @@ function ConstructECSVectorCargoList(cargo_list) {
         decay = [0.4,0.2,0.2,0.1,0.1],
         cat_6 = {
             items = [27, 28, 30, 34, 50],
-            insert_idx = 1,
+            insert_idx = 2,
+            extend_idx = 1,
             label = CatLabels.RAW_FOOD,
             rename_idx = 1,
             rename_label = CatLabels.RAW_MATERIALS,
@@ -946,7 +947,7 @@ function ConstructECSVectorCargoList(cargo_list) {
     [Economies.AXIS__TROPICAL_PARADISE] = { // AXIS 2.3.0: Tropical Paradise (64 cargos)
         limiter = [0,2],
         cat = [[0,2],
-               [4, 8, 10, 15, 21, 24, 26, 27, 28, 29, 30, 33, 34, 35, 36, 40, 43, 47, 48, 49, 50, 55, 57], // Raw materials
+               [4, 8, 10, 15, 27, 28, 30, 34, 35, 36, 40, 43, 47, 48, 49, 50, 57], // Raw materials
                [1, 7, 12, 13, 14, 16, 20, 22, 39, 41, 42, 45, 51, 52, 53, 54, 56, 58, 59, 60], // Refined materials
                [6, 18, 23, 25, 32, 37, 38, 44, 46, 61, 62], // Manufacturing components
                [3, 5, 9, 11, 17, 19, 31, 63] // Finished goods and vehicles
@@ -958,7 +959,8 @@ function ConstructECSVectorCargoList(cargo_list) {
         decay = [0.4,0.2,0.2,0.1,0.1],
         cat_6 = {
             items = [21, 24, 26, 29, 33, 55], // fish, fruits, grain, livestock, milk, sugarcane
-            insert_idx = 1,
+            insert_idx = 2,
+            extend_idx = 1,
             label = CatLabels.RAW_FOOD,
             rename_idx = 1,
             rename_label = CatLabels.RAW_MATERIALS,
@@ -970,7 +972,7 @@ function ConstructECSVectorCargoList(cargo_list) {
     [Economies.AXIS__EXTREME_CLASSIC] = { // AXIS 2.3.0: Extreme Classic (64 cargos)
         limiter = [0,2],
         cat = [[0,2],
-               [6, 7, 13, 14, 15, 18, 25, 26, 28, 29, 30, 31, 32, 34, 35, 36, 37, 43, 45, 48, 49, 50, 51, 56, 57], // Raw & food
+               [6, 7, 13, 14, 15, 18, 29, 30, 32, 35, 36, 37, 43, 45, 48, 49, 50, 51, 57], // Raw & food
                [1, 4, 9, 10, 12, 16, 17, 19, 24, 40, 41, 42, 46, 52, 53, 54, 55, 58, 60, 63], // Processed/refined
                [8, 20, 22, 27, 33, 38, 39, 44, 47, 59, 61], // Intermediate/manufacturing
                [3, 5, 11, 21, 23, 62] // Finished goods
@@ -982,7 +984,8 @@ function ConstructECSVectorCargoList(cargo_list) {
         decay = [0.4, 0.2, 0.2, 0.1, 0.1],
         cat_6 = {
             items = [25, 26, 28, 31, 34, 56], // fish, fruits, grain, livestock, milk, sugar_beet
-            insert_idx = 1,
+            insert_idx = 2,
+            extend_idx = 1,
             label = CatLabels.RAW_FOOD,
             rename_idx = 1,
             rename_label = CatLabels.RAW_MATERIALS,
@@ -1124,11 +1127,34 @@ function DefineCargosBySettings(economy)
         ::CargoPermille <- s.perm;
         ::CargoDecay <- s.decay;
 
+        /* cat_6: Optional 6th category split.
+         * When cargo_6_category setting is enabled:
+         *   - items: cargo indices to split into a new category
+         *   - insert_idx: position to insert the new category
+         *   - rename_idx/rename_label: rename the original category
+         *   - Items are removed from original category (rename_idx)
+         *     to avoid duplication, then inserted at insert_idx.
+         * When cargo_6_category setting is disabled:
+         *   - Items are merged into category at extend_idx (if set),
+         *     otherwise into category at insert_idx. Use extend_idx
+         *     when insert_idx differs from the original category
+         *     (e.g. when swapping category order).
+         */
         if ("cat_6" in s) {
             local c6 = s.cat_6;
             if (::SettingsTable.cargo_6_category) {
                 if ("rename_idx" in c6) {
                     ::CargoCatList[c6.rename_idx] = c6.rename_label;
+                }
+                // Remove cat_6 items from original category to avoid duplication
+                local orig_cat = ::CargoCat[c6.rename_idx];
+                foreach (item in c6.items) {
+                    for (local i = 0; i < orig_cat.len(); ++i) {
+                        if (orig_cat[i] == item) {
+                            orig_cat.remove(i);
+                            break;
+                        }
+                    }
                 }
                 ::CargoCat.insert(c6.insert_idx, c6.items);
                 ::CargoCatList.insert(c6.insert_idx, c6.label);
@@ -1136,7 +1162,8 @@ function DefineCargosBySettings(economy)
                 ::CargoPermille <- c6.perm_active;
                 ::CargoDecay <- c6.decay_active;
             } else {
-                ::CargoCat[c6.insert_idx].extend(c6.items);
+                local ext_idx = ("extend_idx" in c6) ? c6.extend_idx : c6.insert_idx;
+                ::CargoCat[ext_idx].extend(c6.items);
             }
         }
     }
