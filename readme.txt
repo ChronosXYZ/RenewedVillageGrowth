@@ -186,7 +186,7 @@ Normal settings:
 
 Cargo settings:
 - "Cargo: Use 6 cargo categories for supported economies": supported
-  economies are: AXIS 2.2 Steel City, FIRS4/5 Steeltown
+  economies are: AXIS 2.3 Steel City, FIRS4/5 Steeltown
 
 Randomization settings:
 - "Randomization: Type": all towns will have randomly selected
@@ -272,8 +272,9 @@ they can safely be changed while the game is running:
     - these are specifically supported industry NewGRF: Baseset
     (all climates), FIRS 1.4, 2, 3, 4.3, 5 (all economies), ECS 1.2
     (any combination), YETI 0.1.6 (all except Simplified),
-    NAIS 1.0.6, ITI 1.6, 2.14, XIS 0.6 AXIS 2.2, OTIS 05, IOTC 0.1,
-    LJI 0.1, WRBI 1200, Real Beta, Minimalist, PIRS 2022.
+    NAIS 1.0.6, ITI 1.6, 2.14, XIS 0.6, AXIS 2.3 (Steel City, Tropical
+    Paradise, Extreme Classic), OTIS 05, IOTC 0.1, LJI 0.1, WRBI 1200,
+    Real Beta, Minimalist, PIRS 2022.
   Using RVG with any other unsupported industry set will contain
   proceduraly generated categories
 
