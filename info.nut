@@ -67,6 +67,29 @@ class MainClass extends GSInfo
                     _2 = "Good",
                     _3 = "Poor" });
 
+        AddSetting({ name = "force_economy",
+                description = "Economy (0 = auto detect)",
+                easy_value = 0,
+                medium_value = 0,
+                hard_value = 0,
+                custom_value = 0,
+                flags = CONFIG_INGAME, min_value = 0, max_value = 46 });
+        AddLabels("force_economy", {
+                _0 = "Auto Detect",
+                _1 = "Generated",
+                _2 = "Base Temperate", _3 = "Base Arctic", _4 = "Base Tropical", _5 = "Base Toyland",
+                _6 = "FIRS 5 Temperate", _7 = "FIRS 5 Arctic", _8 = "FIRS 5 Tropic", _9 = "FIRS 5 Steeltown", _10 = "FIRS 5 In a Hot Country",
+                _11 = "ECS", _12 = "YETI", _13 = "NAIS North America", _14 = "XIS The Lot",
+                _15 = "AXIS Steel City", _16 = "AXIS Tropical Paradise", _17 = "Pikka's Industries Redux Set (PIRS 2022)",
+                _18 = "FIRS 4 Temperate", _19 = "FIRS 4 Arctic", _20 = "FIRS 4 Tropic", _21 = "FIRS 4 Steeltown", _22 = "FIRS 4 In a Hot Country",
+                _23 = "FIRS 3 Temperate", _24 = "FIRS 3 Arctic", _25 = "FIRS 3 Tropic", _26 = "FIRS 3 Steeltown", _27 = "FIRS 3 In a Hot Country", _28 = "FIRS 3 Extreme",
+                _29 = "FIRS 2 Temperate", _30 = "FIRS 2 Arctic", _31 = "FIRS 2 Tropic", _32 = "FIRS 2 In a Hot Country", _33 = "FIRS 2 Extreme",
+                _34 = "FIRS 1 FIRS", _35 = "FIRS 1 Temperate", _36 = "FIRS 1 Arctic", _37 = "FIRS 1 Tropic", _38 = "FIRS 1 Hearth of Darkness",
+                _39 = "OTIS", _40 = "Industries of the Caribbean", _41 = "Lumberjack Industries",
+                _42 = "Wannaroo Basic Industries", _43 = "Improved Town Industries", _44 = "Improved Town Industries 2",
+                _45 = "Real Industries", _46 = "Minimalist Industries"
+        });
+
         AddSetting({
                 name = "cargo_6_category",
                 description = "Cargo: Use 6 cargo categories for supported economies",
@@ -75,6 +98,34 @@ class MainClass extends GSInfo
                 hard_value = 1,
                 custom_value = 1,
                 flags = CONFIG_BOOLEAN | CONFIG_INGAME });
+
+        AddSetting({
+                name = "always_cat1",
+                description = "Cargo: Modify category 1 (deliver to town)",
+                easy_value = 0, medium_value = 0, hard_value = 0, custom_value = 0,
+                flags = CONFIG_INGAME, min_value = 0, max_value = 6 });
+        AddLabels("always_cat1", {
+                _0 = "None",
+                _1 = "Add: Passenger",
+                _2 = "Add: Mail",
+                _3 = "Add: Passenger and Mail",
+                _4 = "Replace with: Passenger",
+                _5 = "Replace with: Mail",
+                _6 = "Replace with: Passenger and Mail" });
+
+        AddSetting({
+                name = "always_limiter",
+                description = "Limit Growth: Modify limiter cargos (transport out to unblock growth)",
+                easy_value = 0, medium_value = 0, hard_value = 0, custom_value = 0,
+                flags = CONFIG_INGAME, min_value = 0, max_value = 6 });
+        AddLabels("always_limiter", {
+                _0 = "None",
+                _1 = "Add: Passenger",
+                _2 = "Add: Mail",
+                _3 = "Add: Passenger and Mail",
+                _4 = "Replace with: Passenger",
+                _5 = "Replace with: Mail",
+                _6 = "Replace with: Passenger and Mail" });
 
         AddSetting({ name = "cargo_randomization",
                 description = "Randomization: Type",
